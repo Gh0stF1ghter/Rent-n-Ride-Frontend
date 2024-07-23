@@ -1,0 +1,13 @@
+<div
+  class="w-[18vw] min-w-72 bg-primary rounded-3xl justify-center items-center p-2 gap-2"
+>
+ <app-profile-field *ngIf="isLogged; else loginButton">
+
+ </app-profile-field>
+
+  <ng-template #loginButton>
+    <app-nav-button name="profile"></app-nav-button>
+  </ng-template>
+  <app-nav-button name="catalog" iconSrc="/book.svg"></app-nav-button>
+  <app-nav-button name="map" iconSrc="/pointer.svg"></app-nav-button>
+</div>
