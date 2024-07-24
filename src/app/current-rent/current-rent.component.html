@@ -1,10 +1,23 @@
 <div
   *ngIf="isRenting; else Logo"
-  class="h-36 bg-white w-[18vw] min-w-72 mb-3 rounded-3xl"
+  class="relative group bg-white w-[18vw] min-w-72 mb-3 rounded-3xl flex flex-col"
 >
-  <div></div>
+  <div class="w-[100%] flex">
+    <div class="justify-center self-center w-[45%] flex">
+      <img src="logo.svg" alt="logo" width="30" />
+    </div>
+    <div class="w-[55%] m-4">
+      <span class="text-2xl">Lorem Ipsum</span>
+      <br/>
+      <span>
+        00.00
+      </span> left
+    </div>
+  </div>
+  <div class="text-center m-3 p-2 bg-active rounded-3xl hidden group-hover:block">
+    More
+  </div>
 </div>
-
 <ng-template #Logo>
   <a
     title="home"
