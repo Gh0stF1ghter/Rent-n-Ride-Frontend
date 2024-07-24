@@ -1,9 +1,3 @@
-<div *ngIf="isLogged; else signin" class="bg-secondary rounded-3xl flex justify-center p-2">Current Profile</div>
-
-<ng-template #signin>
-    <div
-    mat-ripple
-     class="bg-secondary rounded-3xl flex justify-center nav-button">
-        <span class="sidebar-font">Current profile</span>
-    </div>
-</ng-template>
+<div mat-ripple class="bg-secondary h-24 rounded-3xl flex justify-center nav-button">
+  <span class="sidebar-font">Current profile</span>
+</div>
