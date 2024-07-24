@@ -4,7 +4,6 @@
 @tailwind utilities;
 
 :root {
-  background: linear-gradient(64deg, #EFEFEF 0%, rgba(0, 0, 0, 0.36) 50%, rgba(0, 0, 0, 0.25) 100%);
   background: linear-gradient(
     64deg,
     #efefef 0%,
@@ -14,8 +13,6 @@
   height: 100vh;
   width: 100vw;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html,
 body {
   height: 100%;
@@ -23,4 +20,12 @@ body {
 body {
   margin: 0;
   @apply font-jost
+}
+
+.sidebar-font {
+  @apply font-normal text-3xl
+}
+
+.nav-button {
+  @apply py-8 p-6 bg-secondary rounded-3xl m-2 hover:py-10 transition-all
 }

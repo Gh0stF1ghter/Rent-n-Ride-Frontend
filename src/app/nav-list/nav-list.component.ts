@@ -11,5 +11,5 @@ import { ProfileFieldComponent } from "../profile-field/profile-field.component"
   styleUrl: './nav-list.component.css'
 })
 export class NavListComponent {
-  isLogged = true;
+  isLogged = false;
 }
