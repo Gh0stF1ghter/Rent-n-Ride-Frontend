@@ -1,3 +1,9 @@
-<div class="bg-primary rounded-3xl h-[75vh]">
-Catalog
+<div class="relative p-6 bg-primary rounded-3xl gap-6 h-[75vh] flex">
+    <div class="w-[65%] overflow-y-auto">
+        <app-car-box></app-car-box>
+    </div>
+  <div class=" right-0 w-[30%] rounded-3xl flex flex-col gap-4">
+    <app-sort-field></app-sort-field>
+    <app-filter-list></app-filter-list>
+  </div>
 </div>
