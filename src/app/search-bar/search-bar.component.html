@@ -1,12 +1,19 @@
-<div class="flex items-center gap-2 p-3 bg-white rounded-3xl mb-5">
-  <img src="search.svg" alt="search" />
+<div class="relative flex items-center gap-2 p-4 bg-white rounded-3xl mb-5">
+  <img src="/search.svg" alt="search" class="mx-2" width="30" />
+  <input
+    class="h-9 w-[70%] placeholder:text-black focus:placeholder:text-transparent outline-none text-2xl"
+    placeholder="Search"
+    type="text"
+    [(ngModel)]="value"
+  />
 
-  <mat-form-field>
-    <input class="bg-white " placeholder="search" matInput type="text" [(ngModel)]="value"/>
-    @if (value) {
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="value = ''">
-      <mat-icon>close</mat-icon>
-    </button>
-    }
-  </mat-form-field>
+  <button
+    *ngIf="value"
+    matRipple
+    matRippleColor="rgba(140, 140, 140, 0.4)"
+    class="absolute right-5 p-2 hover:bg-secondary rounded-3xl"
+    (click)="value=''"
+  >
+    <img src="/cross.svg" width="30" />
+  </button>
 </div>
