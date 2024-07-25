@@ -8,7 +8,7 @@ import { SearchBarComponent } from "./search-bar/search-bar.component";
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, SearchBarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'rent-ride-frontend';
