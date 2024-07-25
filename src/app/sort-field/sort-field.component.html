@@ -1,0 +1,22 @@
+<div class="bg-secondary rounded-3xl p-4 scroll-auto">
+  <span>sort field</span>
+  <br />
+  <div>
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
+      <mat-button-toggle value="tiles"
+        ><mat-icon aria-hidden="false">list</mat-icon></mat-button-toggle
+      >
+      <mat-button-toggle value="list"
+        ><mat-icon aria-hidden="false">view_module</mat-icon></mat-button-toggle
+      >
+    </mat-button-toggle-group>
+  </div>
+  <div>
+    <button mat-raised-button>Ascend/Descend</button>
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
+      <mat-button-toggle value="cost">Cost</mat-button-toggle>
+      <mat-button-toggle value="name">Name</mat-button-toggle>
+      <mat-button-toggle value="odo">ODO</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
