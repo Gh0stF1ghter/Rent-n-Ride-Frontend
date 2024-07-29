@@ -12,5 +12,5 @@ export default interface vehicleModel {
   vehicleType: vehicleType;
   vehicleState: vehicleState;
   fuelType: fuelType;
-  carModel: carModel;
+  carModel: carModel | null;
 }

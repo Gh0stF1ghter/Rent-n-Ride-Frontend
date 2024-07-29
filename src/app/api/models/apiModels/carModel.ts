@@ -1,9 +1,9 @@
-import manufacturerModel from "./manufacturerModel";
-import vehicleModel from "./vehicleModel";
+import manufacturerModel from './manufacturerModel';
+import vehicleModel from './vehicleModel';
 
 export default interface carModel {
-    id: string,
-    name: string,
-    manufacturer: manufacturerModel,
-    vehicles: vehicleModel[]
+  id: string;
+  name: string;
+  manufacturer: manufacturerModel | null;
+  vehicles: vehicleModel[];
 }
