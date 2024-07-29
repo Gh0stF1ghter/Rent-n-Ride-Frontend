@@ -1,15 +1,21 @@
 <div class="bg-secondary p-4 rounded-3xl overflow-y-auto h-fit max-h-[50vh]">
   <div>
-    <form>
+    <form [formGroup]="formGroup">
       <mat-form-field>
         <mat-label>Manufacturer</mat-label>
         <input
           type="text"
           aria-label="Manufacturer"
           matInput
+          [formControl]="formGroup.controls.manufacturerControl"
           [matAutocomplete]="manufacturerAuto"
         />
         <mat-autocomplete #manufacturerAuto="matAutocomplete">
+          @for (manufacturer of manufacturers; track manufacturer) {
+          <mat-option (onSelectionChange)="getManufacturer(manufacturer.id)" [value]="manufacturer.name">{{
+            manufacturer.name
+          }}</mat-option>
+          }
         </mat-autocomplete>
       </mat-form-field>
       <mat-form-field>
@@ -18,9 +24,18 @@
           type="text"
           aria-label="Model"
           matInput
+          [formControl]="formGroup.controls.carModelControl"
           [matAutocomplete]="modelAuto"
+          [disabled]="!selectedManufacturer"
+          (submit)="getCarModel()"
         />
-        <mat-autocomplete #modelAuto="matAutocomplete"></mat-autocomplete>
+        <mat-autocomplete #modelAuto="matAutocomplete">
+          @for (carModel of carModels; track carModel) {
+          <mat-option [value]="carModel">
+            {{ carModel.name }}
+          </mat-option>
+          }
+        </mat-autocomplete>
       </mat-form-field>
     </form>
     <span>Fuel</span>
