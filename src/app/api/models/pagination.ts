@@ -1,4 +1,4 @@
 export default interface pagination {
-    page: number,
+    currentPage: number,
     pageSize: number
 }
