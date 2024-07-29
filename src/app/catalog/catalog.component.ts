@@ -8,6 +8,7 @@ import { VehicleService } from '../api/services/vehicle/vehicle.service';
 import pagination from '../api/models/pagination';
 import { ActivatedRoute, Router } from '@angular/router';
 import { sort } from '../api/models/enums/sort';
+import manufacturerModel from '../api/models/apiModels/manufacturerModel';
 
 @Component({
   selector: 'app-catalog',
@@ -99,20 +100,20 @@ export class CatalogComponent implements OnInit {
       }
 
       case sort.odo: {
-        this.vehicles.sort((a,b) => a.odo - b.odo)        
-        
+        this.vehicles.sort((a, b) => a.odo - b.odo);
+
         break;
       }
 
       case sort.cost: {
         this.vehicles.sort((a, b) => a.rentCost - b.rentCost);
-  
+
         break;
       }
     }
   }
 
   reverse() {
-    this.vehicles.reverse()
+    this.vehicles.reverse();
   }
 }
