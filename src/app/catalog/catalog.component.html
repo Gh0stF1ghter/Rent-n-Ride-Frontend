@@ -1,15 +1,19 @@
 <div class="relative p-6 bg-primary rounded-3xl gap-6 h-[75vh] flex">
   <div class="relative h-full w-[65%]">
     <div class="h-full overflow-y-auto scroll">
-      <app-car-box></app-car-box>
-      <app-car-box></app-car-box>
+      @for (vehicle of vehicles; track vehicle) {
+        <app-car-box [vehicle]="vehicle"></app-car-box>
+      }
     </div>
     <div class="absolute bottom-0 w-full">
-      <mat-paginator
-        [length]="200"
+      <mat-paginator #paginator
+        (page)="handlePageEvent($event)"
+        [length]="100"
         showFirstLastButtons="true"
-        [pageSizeOptions]="[10, 50, 100]"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageSize]="currentPageSize"
         aria-label="Select page"
+        [pageIndex]="pageIndex"
       >
       </mat-paginator>
     </div>

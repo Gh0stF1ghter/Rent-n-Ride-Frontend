@@ -23,6 +23,67 @@ import { sort } from '../api/models/enums/sort';
 })
 export class CatalogComponent implements OnInit {
   ngOnInit(): void {
+    let routeParams = this.route.queryParams;
+
+    routeParams.subscribe((params) => {
+      const routePages: pagination = {
+        currentPage: params['currentPage'],
+        pageSize: params['pageSize'],
+      };
+
+      console.log(
+        'Current pages ' + routePages.currentPage + ' ' + routePages.pageSize
+      );
+
+      if (routePages.currentPage && routePages.pageSize) {
+        this.currentPageSize = routePages.pageSize;
+        this.pageIndex = routePages.currentPage - 1;
+
+        this.getVehicles(routePages);
+      } else {
+        this.router.navigate([], { queryParams: this.pagination });
+      }
+    });
+  }
+
+  vehicles: vehicleModel[] = [];
+
+  currentPageSize = 10;
+  pageSizeOptions = [10, 20, 100];
+  pageIndex = 0;
+
+  pagination: pagination = {
+    currentPage: 1,
+    pageSize: 10,
+  };
+
+  pageEvent: PageEvent = new PageEvent();
+
+  constructor(
+    private vehicleService: VehicleService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.currentPageSize = e.pageSize;
+
+    this.pagination.currentPage = e.pageIndex + 1;
+    this.pagination.pageSize = this.currentPageSize;
+
+    this.router.navigate([], { queryParams: this.pagination });
+  }
+
+  getVehicles(pages: pagination) {
+    this.vehicleService.getAll(pages).subscribe((response) => {
+      if (response.body) {
+        this.vehicles = response.body;
+        console.log(this.vehicles);
+      }
+    });
+  }
+
   sortVehicles(sortBy: sort) {
     switch (sortBy) {
       case sort.name: {
