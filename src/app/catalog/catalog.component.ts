@@ -8,7 +8,7 @@ import { VehicleService } from '../api/services/vehicle/vehicle.service';
 import pagination from '../api/models/pagination';
 import { ActivatedRoute, Router } from '@angular/router';
 import { sort } from '../api/models/enums/sort';
-import manufacturerModel from '../api/models/apiModels/manufacturerModel';
+import filterParams from '../api/models/filterParams';
 
 @Component({
   selector: 'app-catalog',
@@ -32,6 +32,15 @@ export class CatalogComponent implements OnInit {
         pageSize: params['pageSize'],
       };
 
+      const filterParams: filterParams = {
+        carModelId: params['carModel']
+      }
+
+      console.log('car model' + filterParams.carModelId);
+      if(filterParams.carModelId) {
+        this.filterParams.carModelId = filterParams.carModelId;
+      }
+
       console.log(
         'Current pages ' + routePages.currentPage + ' ' + routePages.pageSize
       );
@@ -40,9 +49,9 @@ export class CatalogComponent implements OnInit {
         this.currentPageSize = routePages.pageSize;
         this.pageIndex = routePages.currentPage - 1;
 
-        this.getVehicles(routePages);
+        this.getVehicles(routePages, filterParams);
       } else {
-        this.router.navigate([], { queryParams: this.pagination });
+        this.getVehicles(this.pagination, filterParams);
       }
     });
   }
@@ -57,6 +66,10 @@ export class CatalogComponent implements OnInit {
     currentPage: 1,
     pageSize: 10,
   };
+
+  filterParams: filterParams = {
+    carModelId: ''
+  }
 
   pageEvent: PageEvent = new PageEvent();
 
@@ -73,11 +86,14 @@ export class CatalogComponent implements OnInit {
     this.pagination.currentPage = e.pageIndex + 1;
     this.pagination.pageSize = this.currentPageSize;
 
-    this.router.navigate([], { queryParams: this.pagination });
+    this.router.navigate([], {
+      queryParams: this.pagination,
+      queryParamsHandling: 'merge',
+    });
   }
 
-  getVehicles(pages: pagination) {
-    this.vehicleService.getAll(pages).subscribe((response) => {
+  getVehicles(pages: pagination, filterParams: filterParams) {
+    this.vehicleService.getAll(pages, filterParams).subscribe((response) => {
       if (response.body) {
         this.vehicles = response.body;
         console.log(this.vehicles);
@@ -116,4 +132,12 @@ export class CatalogComponent implements OnInit {
   reverse() {
     this.vehicles.reverse();
   }
+
+  FilterByCarModel(carModelId: string) {
+      console.log(carModelId);
+
+      this.router.navigate([], {
+        queryParams: { carModel: carModelId },
+      });  
+    }
 }
