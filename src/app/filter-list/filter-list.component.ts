@@ -1,13 +1,10 @@
+import { Component, EventEmitter, OnInit, output, Output } from '@angular/core';
 import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-  viewChild,
-} from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -18,9 +15,6 @@ import manufacturerModel from '../api/models/apiModels/manufacturerModel';
 import { ManufacturerService } from '../api/services/manufacturer/manufacturer.service';
 import pagination from '../api/models/pagination';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Observable, startWith } from 'rxjs';
-import { map, startsWith } from 'lodash';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import carModel from '../api/models/apiModels/carModel';
 import { CarModelService } from '../api/services/car-model/car-model.service';
 
@@ -42,25 +36,29 @@ import { CarModelService } from '../api/services/car-model/car-model.service';
   styleUrl: './filter-list.component.scss',
 })
 export class FilterListComponent implements OnInit {
+  ngOnInit(): void {
+    this.getManufacturers();
+  }
+
   @Output() onFilterUpdated = new EventEmitter<any>();
 
   formGroup = new FormGroup({
     manufacturerControl: new FormControl(),
-    carModelControl: new FormControl()
-  })
+    carModelControl: new FormControl(),
+  });
 
   manufacturers: manufacturerModel[] = [];
   selectedManufacturer: manufacturerModel | undefined;
 
-
   carModels: carModel[] = [];
   selectedCarModel: carModel | undefined;
 
-  constructor(private manufacturerService: ManufacturerService, private carModelService: CarModelService) {}
+  @Output() onCarModelSelected = new EventEmitter<string>();
 
-  ngOnInit(): void {
-    this.getManufacturers();
-  }
+  constructor(
+    private manufacturerService: ManufacturerService,
+    private carModelService: CarModelService
+  ) {}
 
   getManufacturers() {
     let pagination: pagination = {
@@ -73,27 +71,29 @@ export class FilterListComponent implements OnInit {
         this.manufacturers = response.body;
       }
     });
+
+    this.formGroup.get('carModelControl')?.disable();
   }
 
-  getManufacturer(id:string) {
-      this.manufacturerService
-        .getById(id)
-        .subscribe(
-          manufacturer => {
-            this.selectedManufacturer = manufacturer
-            console.log(manufacturer);
-            
-            this.carModels = manufacturer.carModels
-          }
-        );
+  getManufacturer(id: string) {
+    this.manufacturerService.getById(id).subscribe((manufacturer) => {
+      this.selectedManufacturer = manufacturer;
+      console.log(manufacturer);
+
+      this.carModels = manufacturer.carModels;
+      this.formGroup.get('carModelControl')?.enable();
+    });
   }
 
-  getCarModel() {
-    let carModelInForm: carModel = this.formGroup.controls.carModelControl.value
+  getCarModel(id: string) {
+    this.carModelService.getById(id).subscribe((carModel) => {
+      this.selectedCarModel = carModel;
+      console.log(this.selectedCarModel);
 
-    if(carModelInForm) {
-      this.carModelService.getById(carModelInForm.id).subscribe(carModel => this.selectedCarModel = carModel)
-    }
+      if (this.selectedCarModel) {
+        this.onCarModelSelected.emit(this.selectedCarModel.id);
+      }
+    });
   }
   //Implement logstash debouncer
 }

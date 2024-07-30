@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="right-0 w-[30%] rounded-3xl flex flex-col gap-4">
-    <app-sort-field (sortMethodChanged)="sortVehicles($event)" (ascendingDescending)="reverse()"></app-sort-field>
-    <app-filter-list></app-filter-list>
+    <app-sort-field (sortMethodChanged)="sortVehicles($event)" (orderReversed)="reverse()"></app-sort-field>
+    <app-filter-list (onCarModelSelected)="FilterByCarModel($event)"></app-filter-list>
   </div>
 </div>

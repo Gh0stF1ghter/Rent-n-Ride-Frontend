@@ -12,9 +12,11 @@
         />
         <mat-autocomplete #manufacturerAuto="matAutocomplete">
           @for (manufacturer of manufacturers; track manufacturer) {
-          <mat-option (onSelectionChange)="getManufacturer(manufacturer.id)" [value]="manufacturer.name">{{
-            manufacturer.name
-          }}</mat-option>
+          <mat-option
+            (onSelectionChange)="getManufacturer(manufacturer.id)"
+            [value]="manufacturer.name"
+            >{{ manufacturer.name }}</mat-option
+          >
           }
         </mat-autocomplete>
       </mat-form-field>
@@ -26,12 +28,13 @@
           matInput
           [formControl]="formGroup.controls.carModelControl"
           [matAutocomplete]="modelAuto"
-          [disabled]="!selectedManufacturer"
-          (submit)="getCarModel()"
         />
         <mat-autocomplete #modelAuto="matAutocomplete">
           @for (carModel of carModels; track carModel) {
-          <mat-option [value]="carModel">
+          <mat-option
+            [value]="carModel.name"
+            (onSelectionChange)="getCarModel(carModel.id)"
+          >
             {{ carModel.name }}
           </mat-option>
           }
