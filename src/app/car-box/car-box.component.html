@@ -4,14 +4,30 @@
     </div>
     <div class="relative m-2">
         <span class="text-3xl">
-            Car
+            {{vehicle.carModel?.manufacturer?.name || 'No name'}} {{vehicle.carModel?.name || 'No Model'}}
         </span>
         <br/>
-        <span class="m-2">Avaliable</span>
+        <ul class="ml-2">
+            <li>
+                Avaliable: {{vehicle.isRented}}
+            </li>
+            <li>
+                Trip: {{vehicle.odo}}
+            </li>
+            <li>
+                State: {{vehicle.vehicleState}}
+            </li>
+            <li>
+                Type: {{vehicle.vehicleType}}
+            </li>
+            <li>
+                Fuel: {{vehicle.fuelType}}
+            </li>
+        </ul>
         <div>
 
         </div>
 
-        <span class=" absolute right-0 bottom-0">USD</span>
+        <span class=" absolute right-0 bottom-0">{{vehicle.rentCost}} USD/day</span>
     </div>
 </div>
