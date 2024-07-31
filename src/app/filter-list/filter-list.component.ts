@@ -14,9 +14,13 @@ import { MatInputModule } from '@angular/material/input';
 import manufacturerModel from '../api/models/apiModels/manufacturerModel';
 import { ManufacturerService } from '../api/services/manufacturer/manufacturer.service';
 import pagination from '../api/models/pagination';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import carModel from '../api/models/apiModels/carModel';
 import { CarModelService } from '../api/services/car-model/car-model.service';
+import { MatRadioModule } from '@angular/material/radio';
+import { fuelType } from '../api/models/apiModels/enums/fuelType';
+import { vehicleState } from '../api/models/apiModels/enums/vehicleState';
+import { vehicleType } from '../api/models/apiModels/enums/vehicleType';
 
 @Component({
   selector: 'app-filter-list',
@@ -31,21 +35,20 @@ import { CarModelService } from '../api/services/car-model/car-model.service';
     MatRippleModule,
     ReactiveFormsModule,
     AsyncPipe,
+    MatRadioModule,
   ],
   templateUrl: './filter-list.component.html',
   styleUrl: './filter-list.component.scss',
 })
 export class FilterListComponent implements OnInit {
+  constructor(
+    private manufacturerService: ManufacturerService,
+    private carModelService: CarModelService
+  ) {}
+
   ngOnInit(): void {
     this.getManufacturers();
   }
-
-  @Output() onFilterUpdated = new EventEmitter<any>();
-
-  formGroup = new FormGroup({
-    manufacturerControl: new FormControl(),
-    carModelControl: new FormControl(),
-  });
 
   manufacturers: manufacturerModel[] = [];
   selectedManufacturer: manufacturerModel | undefined;
@@ -53,12 +56,44 @@ export class FilterListComponent implements OnInit {
   carModels: carModel[] = [];
   selectedCarModel: carModel | undefined;
 
+  formGroup = new FormGroup({
+    manufacturerControl: new FormControl(),
+    carModelControl: new FormControl(),
+  });
+
+  fuelTypes = [
+    { value: undefined, name: 'none' },
+    { value: fuelType.gasoline, name: 'gasoline' },
+    { value: fuelType.diesel, name: 'diesel' },
+    { value: fuelType.electro, name: 'electro' },
+  ];
+
+  vehicleStates = [
+    {value: undefined, name: 'none'},
+    {value: vehicleState.new, name: 'new'},
+    {value: vehicleState.used, name: 'used'},
+    {value: vehicleState.crashed, name: 'crashed'},
+  ];
+
+  vehicleTypes = [
+    {value: undefined, name: 'none'},
+    {value: vehicleType.light, name: 'light'},
+    {value: vehicleType.motorcycle, name: 'motorcycle'},
+    {value: vehicleType.sport, name: 'sport'},
+    {value: vehicleType.suv, name: 'suv'},
+    {value: vehicleType.truck, name: 'truck'},
+  ]
+
+  @Output() onFilterUpdated = new EventEmitter<any>();
   @Output() onCarModelSelected = new EventEmitter<string>();
 
-  constructor(
-    private manufacturerService: ManufacturerService,
-    private carModelService: CarModelService
-  ) {}
+  @Output() onFuelTypeSelected = new EventEmitter<fuelType>();
+  @Output() onVehicleStateSelected = new EventEmitter<vehicleState>();
+  @Output() onVehicleTypeSelected = new EventEmitter<vehicleType>();
+
+  getFuelType(fuelType: fuelType | undefined) {
+    this.onFuelTypeSelected.emit(fuelType);
+  }
 
   getManufacturers() {
     let pagination: pagination = {

@@ -43,13 +43,41 @@
     </form>
     <span>Fuel</span>
     <br />
-    <span>State</span>
+      <mat-radio-group>
+        @for (fuelType of fuelTypes; track $index) {
+        <mat-radio-button [value]="fuelType.value" (change)="onFuelTypeSelected.emit(fuelType.value)">
+          {{ fuelType.name }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+      <br />
+      <span>State</span>
+      <br />
+      <mat-radio-group>
+        @for (vehicleState of vehicleStates; track $index) {
+        <mat-radio-button [value]="vehicleState.value" (change)="onVehicleStateSelected.emit(vehicleState.value)">
+          {{ vehicleState.name }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+      <br/>
+      <span>
+        Type
+      </span>
+      <br>
+      <mat-radio-group>
+        @for (vehicleType of vehicleTypes; track $index) {
+        <mat-radio-button [value]="vehicleType.value" (change)="onVehicleTypeSelected.emit(vehicleType.value)">
+          {{ vehicleType.name }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
   </div>
-</div>
-<button
-  type="button"
-  matRipple
-  class="rounded-3xl w-full bg-secondary text-xl mt-3 text-center p-3"
->
-  Clear Filters
-</button>
+  <button
+    type="button"
+    matRipple
+    class="rounded-3xl w-full bg-secondary text-xl mt-3 text-center p-3"
+  >
+    Clear Filters
+  </button>  

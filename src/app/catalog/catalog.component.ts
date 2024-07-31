@@ -9,6 +9,9 @@ import pagination from '../api/models/pagination';
 import { ActivatedRoute, Router } from '@angular/router';
 import { sort } from '../api/models/enums/sort';
 import filterParams from '../api/models/filterParams';
+import { fuelType } from '../api/models/apiModels/enums/fuelType';
+import { vehicleState } from '../api/models/apiModels/enums/vehicleState';
+import { vehicleType } from '../api/models/apiModels/enums/vehicleType';
 
 @Component({
   selector: 'app-catalog',
@@ -33,7 +36,10 @@ export class CatalogComponent implements OnInit {
       };
 
       const filterParams: filterParams = {
-        carModelId: params['carModel']
+        carModelId: params['carModel'],
+        fuelType: params['fuelType'],
+        vehicleState: params['vehicleState'],
+        vehicleType: params['vehicleType']
       }
 
       console.log('car model' + filterParams.carModelId);
@@ -68,7 +74,10 @@ export class CatalogComponent implements OnInit {
   };
 
   filterParams: filterParams = {
-    carModelId: ''
+    carModelId: '',
+    vehicleState: undefined,
+    fuelType: undefined,
+    vehicleType: undefined
   }
 
   pageEvent: PageEvent = new PageEvent();
@@ -133,11 +142,29 @@ export class CatalogComponent implements OnInit {
     this.vehicles.reverse();
   }
 
-  FilterByCarModel(carModelId: string) {
+  filterByCarModel(carModelId: string) {
       console.log(carModelId);
 
       this.router.navigate([], {
         queryParams: { carModel: carModelId },
       });  
     }
+
+  filterByFuelType(filterFuelType: fuelType) {
+    console.log('fuelType ' + filterFuelType);
+    
+      this.router.navigate([], {queryParams: {fuelType: filterFuelType}, queryParamsHandling: 'merge'})
+  }
+
+  filterByVehicleState(filterVehicleState: vehicleState) {
+    console.log('vehiclestate ' + filterVehicleState);
+    
+    this.router.navigate([], {queryParams: {vehicleState: filterVehicleState}, queryParamsHandling: 'merge'})
+  }
+
+  filterByVehicleType(filterVehicleType: vehicleType) {
+    console.log('vehicletype ' + filterVehicleType);
+    
+    this.router.navigate([], {queryParams: {vehicleType: filterVehicleType}, queryParamsHandling: 'merge'})
+  }
 }

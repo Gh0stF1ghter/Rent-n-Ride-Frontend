@@ -20,6 +20,16 @@ export class VehicleService {
       if(filterParams.carModelId) {
         params = params.set(filterKeys.carModelId, filterParams.carModelId);
       }
+      if(filterParams.fuelType) {
+        params = params.set(filterKeys.fuelType, filterParams.fuelType);
+      }
+      if(filterParams.vehicleState) {
+        params = params.set(filterKeys.vehicleState, filterParams.vehicleState)
+      }
+      if(filterParams.vehicleType) {
+        params = params.set(filterKeys.vehicleType, filterParams.vehicleType)
+      }
+
 
       return this.http.get<vehicleModel[]>(catalogServiceEndpoints.vehicles, {
         observe: 'response',

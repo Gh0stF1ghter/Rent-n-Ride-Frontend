@@ -1,12 +1,13 @@
 <div class="relative p-6 bg-primary rounded-3xl gap-6 h-[75vh] flex">
   <div class="relative h-full w-[65%]">
-    <div class="h-full overflow-y-auto scroll">
+    <div class="h-full overflow-y-auto">
       @for (vehicle of vehicles; track vehicle) {
-        <app-car-box [vehicle]="vehicle"></app-car-box>
+      <app-car-box [vehicle]="vehicle"></app-car-box>
       }
     </div>
     <div class="absolute bottom-0 w-full">
-      <mat-paginator #paginator
+      <mat-paginator
+        #paginator
         (page)="handlePageEvent($event)"
         [length]="100"
         showFirstLastButtons="true"
@@ -19,7 +20,15 @@
     </div>
   </div>
   <div class="right-0 w-[30%] rounded-3xl flex flex-col gap-4">
-    <app-sort-field (sortMethodChanged)="sortVehicles($event)" (orderReversed)="reverse()"></app-sort-field>
-    <app-filter-list (onCarModelSelected)="FilterByCarModel($event)"></app-filter-list>
+    <app-sort-field
+      (sortMethodChanged)="sortVehicles($event)"
+      (orderReversed)="reverse()"
+    ></app-sort-field>
+    <app-filter-list
+      (onCarModelSelected)="filterByCarModel($event)"
+      (onFuelTypeSelected)="filterByFuelType($event)"
+      (onVehicleStateSelected)="filterByVehicleState($event)"
+      (onVehicleTypeSelected)="filterByVehicleType($event)"
+    ></app-filter-list>
   </div>
 </div>

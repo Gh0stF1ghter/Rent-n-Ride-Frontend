@@ -4,5 +4,8 @@ export const paginationKeys = {
 }
 
 export const filterKeys = {
-    carModelId: 'CarModelId'
+    carModelId: 'CarModelId',
+    fuelType: 'FuelType',
+    vehicleState: 'VehicleState',
+    vehicleType: 'VehicleType'
 }
