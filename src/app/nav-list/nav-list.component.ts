@@ -8,7 +8,7 @@ import { ProfileFieldComponent } from "../profile-field/profile-field.component"
   standalone: true,
   imports: [NavButtonComponent, CommonModule, ProfileFieldComponent],
   templateUrl: './nav-list.component.html',
-  styleUrl: './nav-list.component.css'
+  styleUrl: './nav-list.component.scss'
 })
 export class NavListComponent {
   isLogged = false;

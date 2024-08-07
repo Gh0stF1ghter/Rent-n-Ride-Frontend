@@ -7,7 +7,7 @@ import { NavListComponent } from "../nav-list/nav-list.component";
   standalone: true,
   imports: [CurrentRentComponent, NavListComponent],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
 

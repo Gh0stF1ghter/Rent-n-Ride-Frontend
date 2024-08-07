@@ -7,7 +7,7 @@ import { MatRipple } from '@angular/material/core';
   standalone: true,
   imports: [CommonModule, MatRipple],
   templateUrl: './profile-field.component.html',
-  styleUrl: './profile-field.component.css'
+  styleUrl: './profile-field.component.scss'
 })
 export class ProfileFieldComponent {
   isLogged = false

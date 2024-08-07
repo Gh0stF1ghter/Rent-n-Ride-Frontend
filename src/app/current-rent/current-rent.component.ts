@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [MatRipple, RouterLink, CommonModule],
   templateUrl: './current-rent.component.html',
-  styleUrl: './current-rent.component.css',
+  styleUrl: './current-rent.component.scss',
 })
 export class CurrentRentComponent {
   isRenting = false;

@@ -7,7 +7,7 @@ import {MatRippleModule} from '@angular/material/core';
   standalone: true,
   imports: [RouterLink, MatRippleModule],
   templateUrl: './nav-button.component.html',
-  styleUrl: './nav-button.component.css'
+  styleUrl: './nav-button.component.scss'
 })
 export class NavButtonComponent {
   @Input() name = 'none';
