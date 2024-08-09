@@ -9,3 +9,12 @@ export const catalogServiceEndpoints = {
 export const rentServiceEndpoint = `${gateway}/rent/history-of-use`
 
 export const userServiceEndpoint = `${gateway}/users/client`
+
+export const AdminPanelServiceEndpoints = {
+    general: `${gateway}/dashboard`,
+    carModels: `${gateway}/dashboard/model`,
+    users: `${gateway}/dashboard/client`,
+    manufacturers: `${gateway}/dashboard/manufacturer`,
+    historyOfUse: `${gateway}/dashboard/history-of-use`,
+    vehicles: `${gateway}/dashboard/vehicle`
+}
