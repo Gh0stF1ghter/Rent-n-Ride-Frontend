@@ -1,0 +1,199 @@
+<div class="relative p-6 bg-primary rounded-3xl gap-6 h-[75vh] overflow-auto">
+  <mat-tab-group>
+    <mat-tab label="users">
+      <table mat-table [dataSource]="users" class="mat-elevation-z8">
+        <ng-container matColumnDef="operationButtons">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef>
+            <button mat-fab><mat-icon>edit</mat-icon></button>
+            <button mat-mini-fab><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="clientModelKeys.firstName">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ clientModelKeys.firstName }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.firstName }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="clientModelKeys.lastName">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ clientModelKeys.lastName }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.lastName }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="clientModelKeys.email">
+          <th mat-header-cell *matHeaderCellDef>email</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.email }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="clientModelKeys.phoneNumber">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ clientModelKeys.phoneNumber }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.phoneNumber }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="clientModelKeys.isRenting">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ clientModelKeys.isRenting }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.isRenting }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="clientModelKeys.balance">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ clientModelKeys.balance }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.balance }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="clientTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: clientTableColumns"></tr>
+      </table>
+    </mat-tab>
+    <mat-tab label="vehicles">
+      <button mat-raised-button (click)="openCreateVehicleDialog()">Add Vehicle</button>
+      <table mat-table [dataSource]="vehicles">
+        <tr mat-header-row *matHeaderRowDef="vehicleTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: vehicleTableColumns"></tr>
+
+        <ng-container matColumnDef="operationButtons">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-fab (click)="openCreateVehicleDialog(element)" ><mat-icon>edit</mat-icon></button>
+            <button mat-mini-fab (click)="deleteVehicle(element.id)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="vehicleModelKeys.carModel">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.carModel }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.carModel.manufacturer.name }} {{ element.carModel.name }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleModelKeys.plateNumber">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.plateNumber }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.plateNumber }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleModelKeys.odo">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.odo }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.odo }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleModelKeys.fuelType">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.fuelType }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.fuelType }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleModelKeys.vehicleType">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.vehicleType }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.vehicleType }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleModelKeys.vehicleState">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.vehicleState }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.vehicleState }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleModelKeys.isRented">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.isRented }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.isRented }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleModelKeys.rentCost">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleModelKeys.rentCost }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.rentCost }}
+          </td>
+        </ng-container>
+      </table>
+    </mat-tab>
+    <mat-tab label="rent sessions">
+      <button mat-raised-button class="m-2" (click)="openCreateRentDialog()">Add Rent Session</button>
+
+      <table mat-table [dataSource]="vehicleClientHistories">
+        <tr
+          mat-header-row
+          *matHeaderRowDef="vehicleClientHistoryTableColumns"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: vehicleClientHistoryTableColumns"
+        ></tr>
+
+        <ng-container matColumnDef="operationButtons">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element" class="flex">
+            <button mat-fab (click)="openCreateRentDialog(element)"><mat-icon>edit</mat-icon></button>
+            <button mat-mini-fab (click)="deleteRent(element.id)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="vehicleClientHistoryModelKeys.clientId">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleClientHistoryModelKeys.clientId }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.clientId }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleClientHistoryModelKeys.vehicleId">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleClientHistoryModelKeys.vehicleId }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.vehicleId }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleClientHistoryModelKeys.startDate">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleClientHistoryModelKeys.startDate }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.startDate }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="vehicleClientHistoryModelKeys.endDate">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ vehicleClientHistoryModelKeys.endDate }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.endDate }}
+          </td>
+        </ng-container>
+      </table>
+    </mat-tab>
+  </mat-tab-group>
+</div>
