@@ -1,11 +1,30 @@
-<button
-  class="justify-center flex nav-button"
-  matRipple
-  matRippleColor="rgba(235, 61, 61, 0.4)"
-  (click)="auth.loginWithRedirect()"
->
-  <div class="flex gap-2">
-    <img width="35" src="/profile.svg"/>
-    <span class="sidebar-font">Log in</span>
-  </div>
-</button>
+<div *ngIf="auth.user$ | async as user; else loginButton">
+  <img [src]="pictureSrc" />
+  <span>
+    {{ user.name }}
+  </span>
+  <span>
+    {{ email }}
+  </span>
+  <button
+    matRipple
+    matRippleColor="rgba(235, 61, 61, 0.4)"
+    class="p-3 rounded-3xl bg-secondary"
+    (click)="auth.logout()"
+  >
+    Log Out
+  </button>
+</div>
+<ng-template #loginButton>
+  <button
+    class="justify-center flex nav-button"
+    matRipple
+    matRippleColor="rgba(235, 61, 61, 0.4)"
+    (click)="auth.loginWithRedirect()"
+  >
+    <div class="flex gap-2">
+      <img width="35" src="/profile.svg" />
+      <span class="sidebar-font">Log in</span>
+    </div>
+  </button>
+</ng-template>
