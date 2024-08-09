@@ -1,0 +1,100 @@
+<h2 mat-dialog-title>Vehicle</h2>
+<mat-dialog-content>
+  <form [formGroup]="formGroup" (ngSubmit)="createVehicle()">
+    <mat-form-field>
+      <mat-label>Manufacturer</mat-label>
+      <mat-select
+        [formControl]="formGroup.controls.manufacturerControl"
+        name="manufacturer"
+        (selectionChange)="getManufacturer(formGroup.value.manufacturerControl)"
+      >
+        @for (manufacturer of manufacturers; track $index) {
+        <mat-option [value]="manufacturer.id">
+          {{ manufacturer.name }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Model</mat-label>
+      <mat-select [formControl]="formGroup.controls.carModelId" name="carModel">
+        @for (carModel of carModels; track $index) {
+        <mat-option [value]="carModel.id">
+          {{ carModel.name }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>plateNumber</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="formGroup.controls.plateNumber"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Odo Trip</mat-label>
+      <input matInput type="number" [formControl]="formGroup.controls.odo" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input
+        matInput
+        [formControl]="formGroup.controls.rentCost"
+        type="number"
+      />
+      <span matTextSuffix>USD</span>
+    </mat-form-field>
+    <mat-checkbox [formControl]="formGroup.controls.isRented"
+      >Is rented
+    </mat-checkbox>
+    <br />
+    <label id="fuelType-label"> Fuel </label>
+    <mat-radio-group
+      aria-labelledby="fuelType-label"
+      [formControl]="formGroup.controls.fuelType"
+    >
+      @for (fuelType of fuelTypes; track fuelType) {
+      <mat-radio-button [value]="fuelType.value">
+        {{ fuelType.name }}
+      </mat-radio-button>
+      }
+    </mat-radio-group>
+    <br />
+
+    <label id="vehicleType-label">Type</label>
+    <mat-radio-group
+      aria-labelledby="vehicleType-label"
+      [formControl]="formGroup.controls.vehicleType"
+    >
+      @for (vehicleType of vehicleTypes; track vehicleType) {
+      <mat-radio-button [value]="vehicleType.value">
+        {{ vehicleType.name }}
+      </mat-radio-button>
+      }
+    </mat-radio-group>
+    <br />
+    <label id="vehicleState-label">State</label>
+    <mat-radio-group
+      aria-labelledby="vehicleState-label"
+      [formControl]="formGroup.controls.vehicleState"
+      required
+    >
+      @for (vehicleState of vehicleStates; track vehicleState) {
+      <mat-radio-button [value]="vehicleState.value">
+        {{ vehicleState.name }}
+      </mat-radio-button>
+      }
+    </mat-radio-group>
+    <br />
+    <button mat-button type="submit" [disabled]="formGroup.invalid">
+      createVehicle
+    </button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close without saving</button>
+</mat-dialog-actions>
