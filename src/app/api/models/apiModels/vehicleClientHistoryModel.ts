@@ -1,7 +1,7 @@
 export default interface vehicleClientHistoryModel {
     id: string,
-    startDate: Date,
-    endDate: Date
+    startDate: string,
+    endDate: string,
     vehicleId: string,
     clientId: string,
 }
