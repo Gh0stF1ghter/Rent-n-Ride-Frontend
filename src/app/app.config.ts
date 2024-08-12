@@ -31,6 +31,16 @@ export const appConfig: ApplicationConfig = {
       httpInterceptor: {
         allowedList: [
           `${AdminPanelServiceEndpoints.general}/*`,
+          {
+            uri: 'https://dev-csticfkrvwhxizog.us.auth0.com/api/v2/*',
+            tokenOptions: {
+              authorizationParams: {
+                audience: 'https://dev-csticfkrvwhxizog.us.auth0.com/api/v2/',
+
+                scope: 'read:current_user',
+              },
+            },
+          },
         ],
       },
     }),
