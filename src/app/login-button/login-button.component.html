@@ -1,7 +1,7 @@
 <div *ngIf="auth.user$ | async as user; else loginButton">
   <img [src]="pictureSrc" />
   <span>
-    {{ user.name }}
+    {{ username }}
   </span>
   <span>
     {{ email }}
