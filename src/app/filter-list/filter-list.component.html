@@ -1,15 +1,23 @@
 <div class="bg-secondary p-4 rounded-3xl overflow-y-auto h-fit max-h-[50vh]">
   <div>
-    <form>
+    <form [formGroup]="formGroup">
       <mat-form-field>
         <mat-label>Manufacturer</mat-label>
         <input
           type="text"
           aria-label="Manufacturer"
           matInput
+          [formControl]="formGroup.controls.manufacturerControl"
           [matAutocomplete]="manufacturerAuto"
         />
         <mat-autocomplete #manufacturerAuto="matAutocomplete">
+          @for (manufacturer of manufacturers; track manufacturer) {
+          <mat-option
+            (onSelectionChange)="getManufacturer(manufacturer.id)"
+            [value]="manufacturer.name"
+            >{{ manufacturer.name }}</mat-option
+          >
+          }
         </mat-autocomplete>
       </mat-form-field>
       <mat-form-field>
@@ -18,20 +26,58 @@
           type="text"
           aria-label="Model"
           matInput
+          [formControl]="formGroup.controls.carModelControl"
           [matAutocomplete]="modelAuto"
         />
-        <mat-autocomplete #modelAuto="matAutocomplete"></mat-autocomplete>
+        <mat-autocomplete #modelAuto="matAutocomplete">
+          @for (carModel of carModels; track carModel) {
+          <mat-option
+            [value]="carModel.name"
+            (onSelectionChange)="getCarModel(carModel.id)"
+          >
+            {{ carModel.name }}
+          </mat-option>
+          }
+        </mat-autocomplete>
       </mat-form-field>
     </form>
     <span>Fuel</span>
     <br />
-    <span>State</span>
+      <mat-radio-group>
+        @for (fuelType of fuelTypes; track $index) {
+        <mat-radio-button [value]="fuelType.value" (change)="onFuelTypeSelected.emit(fuelType.value)">
+          {{ fuelType.name }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+      <br />
+      <span>State</span>
+      <br />
+      <mat-radio-group>
+        @for (vehicleState of vehicleStates; track $index) {
+        <mat-radio-button [value]="vehicleState.value" (change)="onVehicleStateSelected.emit(vehicleState.value)">
+          {{ vehicleState.name }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+      <br/>
+      <span>
+        Type
+      </span>
+      <br>
+      <mat-radio-group>
+        @for (vehicleType of vehicleTypes; track $index) {
+        <mat-radio-button [value]="vehicleType.value" (change)="onVehicleTypeSelected.emit(vehicleType.value)">
+          {{ vehicleType.name }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
   </div>
-</div>
-<button
-  type="button"
-  matRipple
-  class="rounded-3xl w-full bg-secondary text-xl mt-3 text-center p-3"
->
-  Clear Filters
-</button>
+  <button
+    type="button"
+    matRipple
+    class="rounded-3xl w-full bg-secondary text-xl mt-3 text-center p-3"
+  >
+    Clear Filters
+  </button>  

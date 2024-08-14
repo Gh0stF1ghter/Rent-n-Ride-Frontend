@@ -2,7 +2,7 @@
   <span>sort field</span>
   <br />
   <div>
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
+    <mat-button-toggle-group disabled="true" [hideSingleSelectionIndicator]="true">
       <mat-button-toggle value="tiles"
         ><mat-icon aria-hidden="false">list</mat-icon></mat-button-toggle
       >
@@ -12,11 +12,11 @@
     </mat-button-toggle-group>
   </div>
   <div>
-    <button mat-raised-button>Ascend/Descend</button>
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
-      <mat-button-toggle value="cost">Cost</mat-button-toggle>
-      <mat-button-toggle value="name">Name</mat-button-toggle>
-      <mat-button-toggle value="odo">ODO</mat-button-toggle>
+    <button mat-raised-button (click)="orderReversed.emit()">Ascend/Descend</button>
+    <mat-button-toggle-group [formControl]="sortControl" [hideSingleSelectionIndicator]="true" (change)="changeSortField(sortControl.value)">
+      <mat-button-toggle [value]="sortFields.cost" >Cost</mat-button-toggle>
+      <mat-button-toggle [value]="sortFields.name">Name</mat-button-toggle>
+      <mat-button-toggle [value]="sortFields.odo">ODO</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 </div>
