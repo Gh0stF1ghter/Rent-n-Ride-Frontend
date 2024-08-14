@@ -11,6 +11,8 @@ import clientModel from '../../models/apiModels/clientModel';
 import createVehicleModel from '../../models/apiModels/apiCreateModels/createVehicleModel';
 import createVehicleClientHistoryApiModel from '../../models/apiModels/apiCreateModels/createVehicleClientHistoryModel';
 import createVehicleClientHistoryModel from '../../models/createModels/createVehicleClientHistoryModel';
+import createUserApiModel from '../../models/apiModels/apiCreateModels/createUserApiModel';
+import updateUserApiModel from '../../models/apiModels/apiUpdateModels/updateUserApiModel';
 
 @Injectable({
   providedIn: 'root',
@@ -174,5 +176,20 @@ export class DashboardService {
 
   deleteVehicleClientHistory(id: string) {
     return this.http.delete(`${AdminPanelServiceEndpoints.historyOfUse}/${id}`);
+  }
+
+  addUser(createUserModel: createUserApiModel) {
+    return this.http.post(`${AdminPanelServiceEndpoints.users}`, createUserModel)
+  }
+
+  updateUser(id: string, createUserModel: updateUserApiModel) {
+    return this.http.put(
+      `${AdminPanelServiceEndpoints.users}/${id}`,
+      createUserModel
+    );
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete(`${AdminPanelServiceEndpoints.users}/${id}`);
   }
 }
