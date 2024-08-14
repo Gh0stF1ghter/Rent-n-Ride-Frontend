@@ -20,6 +20,9 @@ import createVehicleModel from '../api/models/apiModels/apiCreateModels/createVe
 import { DialogRentComponent } from '../dialog-rent/dialog-rent.component';
 import rentDialogData from '../api/models/rentDialogData';
 import createVehicleClientHistoryModel from '../api/models/createModels/createVehicleClientHistoryModel';
+import { DialogUserComponent } from '../dialog-user/dialog-user.component';
+import createUserApiModel from '../api/models/apiModels/apiCreateModels/createUserApiModel';
+import updateUserApiModel from '../api/models/apiModels/apiUpdateModels/updateUserApiModel';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -114,7 +117,13 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteVehicle(id: string) {
-    this.service.deleteVehicle(id).subscribe(() => this.ngOnInit());
+    this.service.deleteVehicle(id).subscribe(_ => this.ngOnInit());
+  }
+
+  deleteRent(id: string) {
+    this.service
+      .deleteVehicleClientHistory(id)
+      .subscribe(() => this.ngOnInit());
   }
 
   openCreateVehicleDialog(vehicleToEdit?: vehicleModel) {
@@ -127,7 +136,7 @@ export class AdminDashboardComponent implements OnInit {
 
       if (newVehicle) {
         if (vehicleToEdit) {
-          this.service.updateVehicle(vehicleToEdit.id, newVehicle);
+          this.service.updateVehicle(vehicleToEdit.id, newVehicle).subscribe(() => this.ngOnInit());
         } else {
           this.service.addVehicle(newVehicle).subscribe(() => this.ngOnInit());
         }
@@ -158,23 +167,49 @@ export class AdminDashboardComponent implements OnInit {
           this.service.updateVehicleClientHistory(
             vehicleClientHistoryToEdit.id,
             newVehicleClientHistory
-          );
+          ).subscribe(() => this.ngOnInit());
         } else {
           this.service
             .addVehicleClientHistory(newVehicleClientHistory)
-            .subscribe();
+            .subscribe(() => this.ngOnInit());
         }
       }
     });
   }
 
-  deleteRent(id: string) {
-    this.service
-      .deleteVehicleClientHistory(id)
-      .subscribe(() => this.ngOnInit());
+  openCreateUserDialog(userToEdit?: clientModel) {
+    const dialogRef = this.dialog.open(DialogUserComponent, {
+      data: userToEdit
+    })
+
+    dialogRef.beforeClosed().subscribe((result) => {
+
+      if(result) {
+        if(userToEdit) {
+          var updateUser: updateUserApiModel = result
+          console.log(userToEdit);
+          
+          console.log('update user');
+          console.log(updateUser);
+          
+          this.service.updateUser(userToEdit.id, updateUser).subscribe(() => this.ngOnInit())
+        } else {
+          var newUser: createUserApiModel = result
+
+          console.log('add user');
+          console.log(newUser
+          );
+          
+          
+          this.service.addUser(newUser).subscribe(()=> this.ngOnInit())
+        }
+      }
+    });
   }
 
-  openCreateUserDialog() {}
-
-  deleteUser() {}
+  deleteUser(id: string) {
+    console.log('delete ' + id);
+    
+    this.service.deleteUser(id).subscribe(()=> this.ngOnInit())
+  }
 }

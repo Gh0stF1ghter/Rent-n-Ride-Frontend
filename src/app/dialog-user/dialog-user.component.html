@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>User</h2>
+<mat-dialog-content>
+  <form [formGroup]="formGroup" (ngSubmit)="createUser()">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        [formControl]="formGroup.controls.firstName"
+        type="text"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Last Name </mat-label>
+      <input matInput [formControl]="formGroup.controls.lastName" type="text" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="formGroup.controls.email" type="text" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label> Password </mat-label>
+      <input matInput [formControl]="formGroup.controls.password" type="password" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Balance</mat-label>
+      <input
+        matInput
+        [formControl]="formGroup.controls.balance"
+        type="number"
+      />
+    </mat-form-field>
+    <mat-checkbox [formControl]="formGroup.controls.isRenting">
+      Is Renting
+    </mat-checkbox>
+    <br />
+    <button mat-button type="submit" [disabled]="formGroup.invalid">
+      Create User
+    </button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close without saving</button>
+</mat-dialog-actions>

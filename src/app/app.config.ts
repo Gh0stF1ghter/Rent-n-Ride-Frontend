@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
       },
       httpInterceptor: {
         allowedList: [
-          `${AdminPanelServiceEndpoints.general}/*`,
+          `${AdminPanelServiceEndpoints.general}/*`
         ],
       },
     }),
