@@ -1,8 +1,10 @@
+
 import { Component, input, Input, model } from '@angular/core';
 import { vehicleState } from '../api/models/apiModels/enums/vehicleState';
 import { vehicleType } from '../api/models/apiModels/enums/vehicleType';
 import { fuelType } from '../api/models/apiModels/enums/fuelType';
 import vehicleModel from '../api/models/apiModels/vehicleModel';
+
 
 @Component({
   selector: 'app-car-box',
