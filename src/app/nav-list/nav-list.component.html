@@ -3,10 +3,11 @@
 >
   <app-profile-field *ngIf="isLogged; else loginButton"> </app-profile-field>
 
+  <app-nav-button name="Dashboard" route="/dashboard"></app-nav-button>
   <app-nav-button name="Catalog" iconSrc="/book.svg"></app-nav-button>
   <app-nav-button name="Map" iconSrc="/pointer.svg"></app-nav-button>
 </div>
 
 <ng-template #loginButton>
-  <app-nav-button name="Sign In" iconSrc="/profile.svg"></app-nav-button>
+  <app-login-button></app-login-button>
 </ng-template>
